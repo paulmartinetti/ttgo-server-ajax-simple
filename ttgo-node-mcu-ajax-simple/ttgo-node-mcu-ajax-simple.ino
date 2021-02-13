@@ -1,6 +1,5 @@
 #include <WiFi.h>
 #include <WebServer.h>
-#include <ESPmDNS.h>
 #include "index.h"
 
 #define LILYGO_WATCH_2020_V1
@@ -95,7 +94,7 @@ void setup(void) {
   //tft->setCursor(10, 100);
   tft->setTextSize(2);
 
-  WiFi.mode(WIFI_STA);
+  Serial.println("");
   WiFi.begin(ssid, password);
   Serial.println("");
 
@@ -112,11 +111,6 @@ void setup(void) {
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
 
-  if(!MDNS.begin("esp32")) {
-     Serial.println("Error starting mDNS");
-     return;
-  }
-  
   // routes
   server.on("/", handleRoot);
   server.on("/get_status", getStatus);
