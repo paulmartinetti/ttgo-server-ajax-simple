@@ -1,4 +1,3 @@
-#include <WiFi.h>
 #include <WebServer.h>
 #include "index.h"
 
@@ -33,7 +32,7 @@ WebServer server(80);
 
 // route handling functions
 void handleRoot() {
-  String s = webpage;
+  const String s = webpage;
   server.send(200, "text/html", s);
 }
 
@@ -56,7 +55,11 @@ void setText() {
   // write on screen
   tft->fillScreen(TFT_BLACK);
   tft->setCursor(10, 100);
-  String s = server.arg("text");
+  // messages are short
+  String s;
+  s.reserve(50);
+  s = server.arg("text");
+  
   Serial.println(s);
   tft->print(s);
   server.send(200);
