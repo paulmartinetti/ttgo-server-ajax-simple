@@ -25,14 +25,16 @@ void displayOff() {
   bl = 0;
 }
 
-const char* ssid = "YOUR WIFI";
-const char* password = "YOUR WIFI PW";
+const char* ssid = "paU1m4rT1n3TTi";
+const char* password = "c4fa1$v1ngt4n5";
 
 WebServer server(80);
 
 // route handling functions
 void handleRoot() {
-  const String s = webpage;
+  //https://cpp4arduino.com/2020/02/07/how-to-format-strings-without-the-string-class.html
+  char s[4000];
+  snprintf_P(s, sizeof(s), PSTR(webpage));
   server.send(200, "text/html", s);
 }
 
@@ -103,6 +105,7 @@ void setup(void) {
 
   // cancel if failed WiFi
   if (WiFi.waitForConnectResult() != WL_CONNECTED) {
+    delay(3000);
     Serial.println("WiFi failed.");
     WiFi.disconnect(true);
     WiFi.mode(WIFI_OFF);
